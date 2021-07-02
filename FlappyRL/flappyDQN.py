@@ -8,8 +8,6 @@ from keras.models import load_model, save_model, Sequential
 from keras.optimizers import RMSprop
 
 # Neural Network for Agent
-
-
 def NeuralNetwork(input_shape, output_shape):
     model = Sequential()
     model.add(Dense(512, input_shape=input_shape,
@@ -125,10 +123,11 @@ class DQNAgent:
 
                 self.learn()
 
+    # Visualise our model
     def perform(self):
-        self.model = load_model('flappybird.h5')
+        self.model = load_model('flappybrain.h5')
         while 1:
-            state = state.env.reset()
+            state = self.env.reset()
             state = np.reshape(state, [1, self.state_space])
             done = False
             score = 0
@@ -142,12 +141,13 @@ class DQNAgent:
 
                 print("Current Score: {}".format(score))
 
-                if done:
-                    print("DEAD")
+                if done: 
+                    print('DEAD')
                     break
 
 
 if __name__ == "__main__":
+
     agent = DQNAgent()
-    # agent.train()
+    #agent.train()  
     agent.perform()
